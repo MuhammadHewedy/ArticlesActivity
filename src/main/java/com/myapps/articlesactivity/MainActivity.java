@@ -3,6 +3,7 @@ package com.myapps.articlesactivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 
 import com.myapps.articlesactivity.model.ArticlesManager;
@@ -17,7 +18,7 @@ public class MainActivity extends FragmentActivity implements ArticlesHeadlineFr
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            showFragment(new ArticlesHeadlineFragment());
+            showFragment(new ArticlesHeadlineFragment(), false);
         }
     }
 
@@ -36,13 +37,17 @@ public class MainActivity extends FragmentActivity implements ArticlesHeadlineFr
         bundle.putInt(EXTRA_ARTICLE_ID, headlineId);
         articlesFragment.setArguments(bundle);
 
-        showFragment(articlesFragment);
+        showFragment(articlesFragment, true);
     }
 
-    private void showFragment(Fragment fragment) {
+    private void showFragment(Fragment fragment, boolean addToBackStack) {
         if (fragment != null && findViewById(R.id.fragments_container) != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragments_container,
-                    fragment).addToBackStack(null).commit();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragments_container, fragment);
+            if (addToBackStack){
+                fragmentTransaction.addToBackStack(null);
+            }
+            fragmentTransaction.commit();
         }
     }
 }
