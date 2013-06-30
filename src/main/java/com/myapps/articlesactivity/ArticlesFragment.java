@@ -16,16 +16,21 @@ import com.myapps.articlesactivity.model.ArticlesManager;
  */
 public class ArticlesFragment extends Fragment {
 
+    private TextView mTextView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_articles, null);
 
-        int headlineId = getArguments().getInt(MainActivity.EXTRA_ARTICLE_ID);
-        Article article = ArticlesManager.get().getArticle(headlineId);
-
-        TextView textView = (TextView) linearLayout.findViewById(R.id.articles_text);
-        textView.setText(article.getBody());
+        mTextView = (TextView) linearLayout.findViewById(R.id.articles_text);
+        updateArticleView();
 
         return linearLayout;
+    }
+
+    public void updateArticleView() {
+        int headlineId = getArguments().getInt(MainActivity.EXTRA_ARTICLE_ID);
+        Article article = ArticlesManager.get().getArticle(headlineId);
+        mTextView.setText(article.getBody());
     }
 }

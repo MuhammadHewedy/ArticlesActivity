@@ -30,14 +30,25 @@ public class MainActivity extends FragmentActivity implements ArticlesHeadlineFr
 
     @Override
     public void onArticleHeadlineSelected(int position) {
-        int headlineId = ArticlesManager.get().getHeadLines().get(position).getId();
+        ArticlesFragment articlesFragment = (ArticlesFragment) getSupportFragmentManager().findFragmentById(R.id
+                .articles_fragment);
 
-        ArticlesFragment articlesFragment = new ArticlesFragment();
+        boolean largeLayout = true;
+        if (articlesFragment == null){
+            articlesFragment = new ArticlesFragment();
+            largeLayout = false;
+        }
+
         Bundle bundle = new Bundle();
+        int headlineId = ArticlesManager.get().getHeadLines().get(position).getId();
         bundle.putInt(EXTRA_ARTICLE_ID, headlineId);
         articlesFragment.setArguments(bundle);
 
-        showFragment(articlesFragment, true);
+        if (largeLayout){
+            articlesFragment.updateArticleView();
+        }else{
+            showFragment(articlesFragment, true);
+        }
     }
 
     private void showFragment(Fragment fragment, boolean addToBackStack) {
