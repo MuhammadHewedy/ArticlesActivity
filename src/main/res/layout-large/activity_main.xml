@@ -15,15 +15,13 @@
             android:id="@+id/articles_headlines_fragment"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            tools:layout="@layout/fragment_articles_headline"/>
+            android:layout_weight="1"/>
 
     <fragment
             android:name="com.myapps.articlesactivity.ArticlesFragment"
             android:id="@+id/articles_fragment"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:layout_weight="2"
-            tools:layout="@layout/fragment_articles"/>
+            android:layout_weight="2"/>
 
 </LinearLayout>
