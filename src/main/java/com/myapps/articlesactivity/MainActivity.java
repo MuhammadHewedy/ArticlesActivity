@@ -3,9 +3,12 @@ package com.myapps.articlesactivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Menu;
 
+import android.view.MenuItem;
 import com.myapps.articlesactivity.model.ArticlesManager;
 
 public class MainActivity extends FragmentActivity implements ArticlesHeadlineFragment.OnArticleHeadlineSelectedListener {
@@ -26,6 +29,19 @@ public class MainActivity extends FragmentActivity implements ArticlesHeadlineFr
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if (fragmentManager.getBackStackEntryCount() > 0){
+                    fragmentManager.popBackStack();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

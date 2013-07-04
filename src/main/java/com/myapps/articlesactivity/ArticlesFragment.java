@@ -2,12 +2,14 @@ package com.myapps.articlesactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.myapps.articlesactivity.model.Article;
 import com.myapps.articlesactivity.model.ArticlesManager;
 
@@ -24,6 +26,8 @@ public class ArticlesFragment extends Fragment {
 
         mTextView = (TextView) linearLayout.findViewById(R.id.articles_text);
         updateArticleView();
+
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         return linearLayout;
     }

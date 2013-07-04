@@ -30,6 +30,8 @@ public class ArticlesHeadlineFragment extends ListFragment {
         setListAdapter(new ArrayAdapter<ArticleHeadline>(getActivity(),
                 android.R.layout.simple_list_item_1, ArticlesManager.get().getHeadLines()));
 
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+
         return linearLayout;
     }
 
