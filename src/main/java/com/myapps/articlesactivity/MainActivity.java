@@ -5,9 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
-
 import android.view.MenuItem;
 import com.myapps.articlesactivity.model.ArticlesManager;
 
@@ -49,21 +47,21 @@ public class MainActivity extends FragmentActivity implements ArticlesHeadlineFr
         ArticlesFragment articlesFragment = (ArticlesFragment) getSupportFragmentManager().findFragmentById(R.id
                 .articles_fragment);
 
-        boolean largeLayout = true;
+        int headlineId = ArticlesManager.get().getHeadLines().get(position).getId();
+        boolean dynamicFragments = false;
+
         if (articlesFragment == null){
             articlesFragment = new ArticlesFragment();
-            largeLayout = false;
+            Bundle bundle = new Bundle();
+            bundle.putInt(EXTRA_ARTICLE_ID, headlineId);
+            articlesFragment.setArguments(bundle);
+            dynamicFragments = true;
         }
 
-        Bundle bundle = new Bundle();
-        int headlineId = ArticlesManager.get().getHeadLines().get(position).getId();
-        bundle.putInt(EXTRA_ARTICLE_ID, headlineId);
-        articlesFragment.setArguments(bundle);
-
-        if (largeLayout){
-            articlesFragment.updateArticleView();
-        }else{
+        if (dynamicFragments){
             showFragment(articlesFragment, true);
+        }else{
+            articlesFragment.updateArticleView(headlineId);
         }
     }
 

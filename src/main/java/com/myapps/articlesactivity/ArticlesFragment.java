@@ -2,10 +2,7 @@ package com.myapps.articlesactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -25,15 +22,18 @@ public class ArticlesFragment extends Fragment {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_articles, null);
 
         mTextView = (TextView) linearLayout.findViewById(R.id.articles_text);
-        updateArticleView();
 
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        boolean dynamicFragments = getArguments() != null;
+
+        if (dynamicFragments){
+            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+            updateArticleView(getArguments().getInt(MainActivity.EXTRA_ARTICLE_ID));
+        }
 
         return linearLayout;
     }
 
-    public void updateArticleView() {
-        int headlineId = getArguments().getInt(MainActivity.EXTRA_ARTICLE_ID);
+    public void updateArticleView(int headlineId) {
         Article article = ArticlesManager.get().getArticle(headlineId);
         mTextView.setText(article.getBody());
     }
